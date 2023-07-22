@@ -2,9 +2,10 @@
 import pandas as pd
 import polars as pl
 from polars.testing import assert_frame_equal
+import numpy as np
+
 
 # Reshape the series ser into a dataframe with 7 rows and 5 columns
-import numpy as np
 cols = ["1", "2", "3", "4", "5"]
 
 for _ in range(10):  # try 10 times due to randomness
