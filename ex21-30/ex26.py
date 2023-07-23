@@ -6,22 +6,23 @@ import numpy as np
 
 
 # Compute the mean of weights of each fruit.
-fruits = np.random.choice(['apple', 'banana', 'carrot'], 10)
-weights = np.linspace(1, 10, 10)
+for _ in range(1_000):
+    fruits = np.random.choice(['apple', 'banana', 'carrot'], 10)
+    weights = np.linspace(1, 10, 10)
 
-# pandas
-pd_fruits = pd.Series(fruits)
-pd_weights = pd.Series(weights, name="weights")
-pd_ser = pd_weights.groupby(pd_fruits).mean()
+    # pandas
+    pd_fruits = pd.Series(fruits)
+    pd_weights = pd.Series(weights, name="weights")
+    pd_ser = pd_weights.groupby(pd_fruits).mean().round(3).sort_values()
 
-# polars
-pl_ser = (
-    pl.Series("weights", weights)
-    .to_frame()
-    .groupby(pl.Series(fruits))
-    .mean()
-)["weights"]
+    # polars
+    pl_ser = (
+        pl.Series("weights", weights)
+        .to_frame()
+        .groupby(pl.Series(fruits))
+        .mean()
+    )["weights"].round(3).sort()
 
-assert_series_equal(pl.from_pandas(pd_ser), pl_ser)
+    assert_series_equal(pl.from_pandas(pd_ser), pl_ser)
 
 print("Completed.")
