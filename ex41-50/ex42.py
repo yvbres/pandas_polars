@@ -1,4 +1,5 @@
-# 42. How to replace missing values of multiple numeric columns with the mean?
+# 42. How to replace missing values of multiple numeric columns
+# with the mean?
 import __init__  # noqa: F401
 import pandas as pd
 import polars as pl
